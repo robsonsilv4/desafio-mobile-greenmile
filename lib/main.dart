@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import 'data/data_providers/data_provider.dart';
+import 'data/repositories/resource_repository.dart';
+import 'presentation/screens/home_screen.dart';
 
 void main() {
   runApp(App());
@@ -14,8 +19,10 @@ class App extends StatelessWidget {
         primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Container(
-        color: Colors.green,
+      home: HomeScreen(
+        resourceRepository: ResourceRepository(
+          dataProvider: DataProvider(client: http.Client()),
+        ),
       ),
     );
   }
