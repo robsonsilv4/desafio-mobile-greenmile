@@ -18,6 +18,6 @@ class DataProvider {
   Future<List<Resource>> fetchResources() async {
     final response = await client
         .get('http://portal.greenmilesoftware.com/get_resources_since');
-    return compute(parseResources, response.body);
+    return compute(parseResources, utf8.decode(response.bodyBytes));
   }
 }

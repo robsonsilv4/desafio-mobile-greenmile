@@ -11,7 +11,6 @@ class ResourceItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formatter = DateFormat('dd-MM-yyyy hh:mm:ss');
-
     final updatedAt = DateTime.parse(resource.updatedAt);
     final formattedUpdatedAt = formatter.format(updatedAt);
 
