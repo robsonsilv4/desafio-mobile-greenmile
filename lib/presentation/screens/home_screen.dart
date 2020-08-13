@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/resource/resource_bloc.dart';
+import '../../blocs/resource/resource_bloc.dart';
 import '../widgets/bottom_loader.dart';
 import '../widgets/resource_item.dart';
 

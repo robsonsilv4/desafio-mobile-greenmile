@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
+import 'blocs/resource/resource_bloc.dart';
+import 'blocs/resource_observer.dart';
 import 'data/data_providers/data_provider.dart';
 import 'data/repositories/resource_repository.dart';
-import 'presentation/blocs/resource/resource_bloc.dart';
-import 'presentation/blocs/resource_observer.dart';
 import 'presentation/screens/home_screen.dart';
 
 void main() {

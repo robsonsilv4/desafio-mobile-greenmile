@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:greenmile_challenge/data/models/resource.dart';
 import 'package:meta/meta.dart';
 
-import '../../../data/models/resource.dart';
-import '../../../data/repositories/resource_repository.dart';
+import '../../data/repositories/resource_repository.dart';
 
 part 'resource_event.dart';
 part 'resource_state.dart';
