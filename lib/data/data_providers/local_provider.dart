@@ -50,4 +50,12 @@ class LocalProvider {
     );
     return resources.map((resource) => Resource.fromJson(resource)).toList();
   }
+
+  Future<List<Resource>> searchResources({String value}) async {
+    final database = await _initDatabase();
+    final resources = await database.rawQuery(
+      'SELECT * FROM $tableName WHERE value LIKE "%$value%"',
+    );
+    return resources.map((resource) => Resource.fromJson(resource)).toList();
+  }
 }

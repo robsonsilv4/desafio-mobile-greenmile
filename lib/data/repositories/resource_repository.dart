@@ -22,4 +22,8 @@ class ResourceRepository {
       limit: limit,
     );
   }
+
+  Future<List<Resource>> searchResources({String query}) async {
+    return await localProvider.searchResources(value: query);
+  }
 }

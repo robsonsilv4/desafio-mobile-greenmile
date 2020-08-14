@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../blocs/resource/resource_bloc.dart';
+import '../../data/models/resource.dart';
 import '../widgets/bottom_loader.dart';
 import '../widgets/resource_item.dart';
+import '../widgets/resource_search.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -66,7 +68,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       size: 30.0,
                       color: Colors.grey,
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      Resource selected = await showSearch<Resource>(
+                        context: context,
+                        delegate: ResourceSearch(),
+                      );
+                      print(selected);
+                    },
                   ),
                 ],
               ),
