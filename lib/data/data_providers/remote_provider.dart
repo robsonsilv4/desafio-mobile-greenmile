@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 import '../../constants.dart';
 import '../models/resource.dart';
+import '../services/services_locator.dart';
 
 List<Resource> _parseResources(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
@@ -15,9 +16,7 @@ List<Resource> _parseResources(String responseBody) {
 }
 
 class RemoteProvider {
-  final http.Client client;
-
-  RemoteProvider({@required this.client});
+  final client = getIt.get<http.Client>();
 
   Future<List<Resource>> fetchResources() async {
     final response = await client.get(baseUrl);

@@ -1,17 +1,11 @@
-import 'package:flutter/widgets.dart';
-
 import '../data_providers/local_provider.dart';
 import '../data_providers/remote_provider.dart';
 import '../models/resource.dart';
+import '../services/services_locator.dart';
 
 class ResourceRepository {
-  final LocalProvider localProvider;
-  final RemoteProvider remoteProvider;
-
-  ResourceRepository({
-    @required this.localProvider,
-    @required this.remoteProvider,
-  });
+  final localProvider = getIt.get<LocalProvider>();
+  final remoteProvider = getIt.get<RemoteProvider>();
 
   Future<bool> existsLocally() async {
     return await localProvider.existsLocally();
