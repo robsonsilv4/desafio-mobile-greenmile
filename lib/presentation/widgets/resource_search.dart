@@ -9,6 +9,27 @@ class ResourceSearch extends SearchDelegate<Resource> {
   final resourceSearch = getIt.get<ResourceSearchBloc>();
 
   @override
+  ThemeData appBarTheme(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return theme.copyWith(
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: TextStyle(
+          color: theme.primaryTextTheme.headline6.color,
+        ),
+      ),
+      primaryColor: theme.primaryColor,
+      primaryIconTheme: theme.primaryIconTheme,
+      primaryColorBrightness: theme.primaryColorBrightness,
+      primaryTextTheme: theme.primaryTextTheme,
+      textTheme: theme.textTheme.copyWith(
+        headline6: theme.textTheme.headline6.copyWith(
+          color: theme.primaryTextTheme.headline6.color,
+        ),
+      ),
+    );
+  }
+
+  @override
   List<Widget> buildActions(BuildContext context) => null;
 
   @override
@@ -43,8 +64,16 @@ class ResourceSearch extends SearchDelegate<Resource> {
           itemCount: state.resources.length,
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
-              leading: Icon(Icons.local_library),
-              title: Text(state.resources[index].value),
+              leading: Icon(
+                Icons.local_library,
+                color: Theme.of(context).primaryColor,
+              ),
+              title: Text(
+                state.resources[index].value,
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
               onTap: () => close(
                 context,
                 state.resources[index],
