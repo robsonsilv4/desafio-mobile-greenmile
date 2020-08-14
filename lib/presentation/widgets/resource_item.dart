@@ -46,6 +46,7 @@ class ResourceItem extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w500,
+                      color: Colors.black87,
                     ),
                   ),
                 ),
@@ -58,11 +59,15 @@ class ResourceItem extends StatelessWidget {
                 Icon(
                   Icons.date_range,
                   size: 14.0,
+                  color: Colors.grey,
                 ),
                 SizedBox(width: 4.0),
                 Text(
                   formattedUpdatedAt,
-                  style: TextStyle(fontSize: 12.0),
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.grey,
+                  ),
                 ),
               ],
             ),
@@ -71,6 +76,9 @@ class ResourceItem extends StatelessWidget {
               resource.value,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: Colors.black87,
+              ),
             ),
           ],
         ),

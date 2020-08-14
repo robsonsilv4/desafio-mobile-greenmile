@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../blocs/resource/resource_bloc.dart';
 import '../widgets/bottom_loader.dart';
@@ -35,47 +36,83 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Desafio Mobile'),
-      ),
       backgroundColor: Colors.grey.shade200,
-      body: BlocBuilder(
-          cubit: _resourceBloc,
-          builder: (context, state) {
-            if (state is ResourceInitial) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-
-            if (state is ResourceFailure) {
-              return Center(
-                child: Text('Ocorreu um erro ao carregar os recursos.'),
-              );
-            }
-
-            if (state is ResourceSuccess) {
-              if (state.resources.isEmpty) {
-                return Center(
-                  child: Text('Nenhum recurso encontrado.'),
-                );
-              }
-            }
-
-            return ListView.builder(
-              itemCount: state.hasReachedMax
-                  ? state.resources.length
-                  : state.resources.length + 1,
-              controller: _scrollController,
-              itemBuilder: (context, index) {
-                return index >= state.resources.length
-                    ? BottomLoader()
-                    : ResourceItem(
-                        resource: state.resources[index],
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 16.0,
+                right: 16.0,
+                top: 20.0,
+                bottom: 8.0,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SvgPicture.asset(
+                    'assets/black_logo.svg',
+                    fit: BoxFit.cover,
+                    color: Colors.green,
+                    placeholderBuilder: (context) => Icon(
+                      Icons.error,
+                      color: Colors.red,
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.search,
+                      size: 30.0,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: BlocBuilder(
+                  cubit: _resourceBloc,
+                  builder: (context, state) {
+                    if (state is ResourceInitial) {
+                      return Center(
+                        child: CircularProgressIndicator(),
                       );
-              },
-            );
-          }),
+                    }
+
+                    if (state is ResourceFailure) {
+                      return Center(
+                        child: Text('Ocorreu um erro ao carregar os recursos.'),
+                      );
+                    }
+
+                    if (state is ResourceSuccess) {
+                      if (state.resources.isEmpty) {
+                        return Center(
+                          child: Text('Nenhum recurso encontrado.'),
+                        );
+                      }
+                    }
+
+                    return ListView.builder(
+                      itemCount: state.hasReachedMax
+                          ? state.resources.length
+                          : state.resources.length + 1,
+                      controller: _scrollController,
+                      itemBuilder: (context, index) {
+                        return index >= state.resources.length
+                            ? BottomLoader()
+                            : ResourceItem(
+                                resource: state.resources[index],
+                              );
+                      },
+                    );
+                  }),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
