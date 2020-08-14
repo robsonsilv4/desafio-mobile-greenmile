@@ -10,9 +10,12 @@ class ResourceItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String formattedUpdatedAt = '';
     final formatter = DateFormat('dd-MM-yyyy hh:mm:ss');
-    final updatedAt = DateTime.parse(resource.updatedAt);
-    final formattedUpdatedAt = formatter.format(updatedAt);
+    if (resource.updatedAt != null) {
+      final updatedAt = DateTime.parse(resource.updatedAt);
+      formattedUpdatedAt = formatter.format(updatedAt);
+    }
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
