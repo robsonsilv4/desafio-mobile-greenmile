@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:greenmile_challenge/data/models/resource.dart';
 import 'package:meta/meta.dart';
 
+import '../../data/models/resource.dart';
 import '../../data/repositories/resource_repository.dart';
 
 part 'resource_event.dart';
@@ -28,21 +28,36 @@ class ResourceBloc extends Bloc<ResourceEvent, ResourceState> {
     if (event is ResourceFetched && !_hasReachedMax(currentState)) {
       try {
         if (currentState is ResourceInitial) {
-          final resources = await resourceRepository.getAllResources();
-          yield ResourceSuccess(resources: resources, hasReachedMax: false);
+          final existsLocally = await resourceRepository.existsLocally();
+          if (!existsLocally) {
+            await resourceRepository.fetchResources();
+          }
+          final resources = await resourceRepository.getResources(
+            startIndex: 0,
+            limit: 20,
+          );
+          yield ResourceSuccess(
+            resources: resources,
+            hasReachedMax: false,
+          );
           return;
         }
 
         if (currentState is ResourceSuccess) {
-          final resources = await resourceRepository.getAllResources();
+          final resources = await resourceRepository.getResources(
+            startIndex: currentState.resources.length,
+            limit: 20,
+          );
           yield resources.isEmpty
               ? currentState.copyWith(hasReachedMax: true)
               : ResourceSuccess(
-                  resources: resources,
+                  resources: currentState.resources + resources,
                   hasReachedMax: false,
                 );
         }
-      } catch (_) {
+      } catch (error, stacktace) {
+        print(error);
+        print(stacktace);
         yield ResourceFailure();
       }
     }

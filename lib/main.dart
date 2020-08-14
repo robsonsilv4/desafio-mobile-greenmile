@@ -4,11 +4,13 @@ import 'package:http/http.dart' as http;
 
 import 'blocs/resource/resource_bloc.dart';
 import 'blocs/resource_observer.dart';
-import 'data/data_providers/data_provider.dart';
+import 'data/data_providers/local_provider.dart';
+import 'data/data_providers/remote_provider.dart';
 import 'data/repositories/resource_repository.dart';
 import 'presentation/screens/home_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = ResourceObserver();
   runApp(App());
 }
@@ -26,9 +28,10 @@ class App extends StatelessWidget {
       home: BlocProvider<ResourceBloc>(
         create: (context) => ResourceBloc(
           resourceRepository: ResourceRepository(
-              dataProvider: DataProvider(
-            client: http.Client(),
-          )),
+              localProvider: LocalProvider(),
+              remoteProvider: RemoteProvider(
+                client: http.Client(),
+              )),
         )..add(ResourceFetched()),
         child: HomeScreen(),
       ),
