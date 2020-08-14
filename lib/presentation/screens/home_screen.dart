@@ -38,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('Desafio Mobile'),
       ),
+      backgroundColor: Colors.grey.shade200,
       body: BlocBuilder(
           cubit: _resourceBloc,
           builder: (context, state) {
