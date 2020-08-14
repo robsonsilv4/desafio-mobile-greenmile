@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 return index >= state.resources.length
                     ? BottomLoader()
                     : ResourceItem(
-                        resource: state.resources[index].resource,
+                        resource: state.resources[index],
                       );
               },
             );

@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import '../../data/models/resource.dart';
 
 class ResourceItem extends StatelessWidget {
-  final ResourceAttributes resource;
+  final Resource resource;
 
   const ResourceItem({Key key, this.resource}) : super(key: key);
 

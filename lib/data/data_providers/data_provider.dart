@@ -3,11 +3,16 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
+import '../../constants.dart';
 import '../models/resource.dart';
 
 List<Resource> parseResources(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-  return parsed.map<Resource>((json) => Resource.fromJson(json)).toList();
+
+  return parsed.map<Resource>((json) {
+    final resource = json['resource'] != null ? json['resource'] : null;
+    return Resource.fromJson(resource);
+  }).toList();
 }
 
 class DataProvider {
@@ -16,8 +21,7 @@ class DataProvider {
   DataProvider({@required this.client});
 
   Future<List<Resource>> fetchResources() async {
-    final response = await client
-        .get('http://portal.greenmilesoftware.com/get_resources_since');
+    final response = await client.get(baseUrl);
     return compute(parseResources, utf8.decode(response.bodyBytes));
   }
 }
