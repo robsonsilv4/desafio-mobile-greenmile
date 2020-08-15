@@ -2,20 +2,18 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 import '../../data/models/resource.dart';
 import '../../data/repositories/resource_repository.dart';
+import '../../data/services/services_locator.dart';
 
 part 'resource_event.dart';
 part 'resource_state.dart';
 
 class ResourceBloc extends Bloc<ResourceEvent, ResourceState> {
-  final ResourceRepository resourceRepository;
+  final resourceRepository = getIt.get<ResourceRepository>();
 
-  ResourceBloc({@required this.resourceRepository})
-      : assert(resourceRepository != null),
-        super(ResourceInitial());
+  ResourceBloc() : super(ResourceInitial());
 
   bool _hasReachedMax(ResourceState state) =>
       state is ResourceSuccess && state.hasReachedMax;

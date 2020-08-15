@@ -27,9 +27,7 @@ class App extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: BlocProvider<ResourceBloc>(
-        create: (context) => ResourceBloc(
-          resourceRepository: resourceRepository,
-        )..add(ResourceFetched()),
+        create: (context) => ResourceBloc()..add(ResourceFetched()),
         child: HomeScreen(),
       ),
     );
