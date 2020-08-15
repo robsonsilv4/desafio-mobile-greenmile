@@ -37,7 +37,7 @@ class LocalProvider {
   Future<void> insertResources({@required List<Resource> resources}) async {
     final database = await _initDatabase();
     database.transaction((transaction) async {
-      for (int index = 0; index < 100; index++) {
+      for (int index = 0; index < 1000; index++) {
         await transaction.insert(tableName, resources[index].toJson());
       }
     });

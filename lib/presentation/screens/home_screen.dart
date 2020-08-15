@@ -85,7 +85,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   builder: (context, state) {
                     if (state is ResourceInitial) {
                       return Center(
-                        child: CircularProgressIndicator(),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(),
+                            SizedBox(height: 10.0),
+                            Text(
+                              'Carregando recursos... 🍃',
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                          ],
+                        ),
                       );
                     }
 
